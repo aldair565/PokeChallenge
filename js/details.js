@@ -1,7 +1,8 @@
 const detailsPage = window.location.href.toString();
-const pokemonNumber = parseInt(detailsPage.charAt(detailsPage.length-1)) + 1;
+const pokeapiUrl = detailsPage.split("/");
+const id = pokeapiUrl[pokeapiUrl.length - 2];
 
-fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`)
+fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
 .then(response => response.json())
 .then(pokemon => {
     let summary = document.getElementById("card")
@@ -9,11 +10,11 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`)
 
     summary.innerHTML = `<div class="row g-0">
         <div class="col-md-4">
-            <img src="${pokemon.sprites.front_default}" class="img-fluid rounded-start" alt="...">
+            <img src="${pokemon.sprites.front_default}" class="img-fluid" alt="${pokemon.name}">
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h2 class="card-title">${pokemon.name}</h2>
+                <h2 class="card-title">#${pokemon.id} ${pokemon.name}</h2>
                 <p class="card-text">Weight: ${pokemon.weight}</p>
                 <p class="card-text">Height: ${pokemon.height}</p>
             </div>
